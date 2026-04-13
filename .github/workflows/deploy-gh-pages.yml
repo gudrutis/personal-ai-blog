@@ -2,8 +2,8 @@ name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -19,7 +19,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.147.2
+      HUGO_VERSION: 0.153.0
+      GO_VERSION: '1.23'
+      NODE_VERSION: '22'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,11 +32,29 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
+
+      - name: Install Hugo module
+        run: hugo mod get -u github.com/zetxek/adritian-free-hugo-theme
+
+      - name: Install theme npm dependencies
+        run: |
+          hugo mod npm pack
+          npm install
 
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"

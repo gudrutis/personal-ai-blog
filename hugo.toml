@@ -1,41 +1,123 @@
 baseURL = 'https://YOUR_GITHUB_USERNAME.github.io/personal-ai-blog/'
-languageCode = 'en-us'
+languageCode = 'en'
 title = 'My Personal Blog + Portfolio'
+
 enableRobotsTXT = true
+
+disableKinds = ['taxonomy', 'term']
 
 [pagination]
   pagerSize = 6
 
+[module]
+  [module.hugoVersion]
+    min = '0.153.0'
+
+  [[module.imports]]
+    path = 'github.com/zetxek/adritian-free-hugo-theme'
+
+  [[module.mounts]]
+    source = 'archetypes'
+    target = 'archetypes'
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    source = 'content'
+    target = 'content'
+  [[module.mounts]]
+    source = 'data'
+    target = 'data'
+  [[module.mounts]]
+    source = 'i18n'
+    target = 'i18n'
+  [[module.mounts]]
+    source = 'layouts'
+    target = 'layouts'
+  [[module.mounts]]
+    source = 'static'
+    target = 'static'
+  [[module.mounts]]
+    source = 'node_modules/bootstrap/scss'
+    target = 'assets/scss/bootstrap'
+  [[module.mounts]]
+    source = 'node_modules/bootstrap/dist/js'
+    target = 'assets/js/bootstrap'
+  [[module.mounts]]
+    source = 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+    target = 'assets/js/vendor/bootstrap.bundle.min.js'
+  [[module.mounts]]
+    source = 'node_modules/bootstrap-print-css/css/bootstrap-print.css'
+    target = 'assets/css/bootstrap-print.css'
+
 [params]
-  description = 'A personal blog and portfolio built with Hugo.'
-  author = 'Your Name'
+  title = 'My Personal Blog + Portfolio'
+  description = 'Personal blog and portfolio powered by Hugo + Adritian theme.'
+  homepageExperienceCount = 4
+
+  [params.plugins]
+    [[params.plugins.css]]
+      URL = 'css/custom.css'
+    [[params.plugins.scss]]
+      URL = 'scss/adritian.scss'
+
+[params.blog]
+  layout = 'sidebar-right'
+  showCategories = true
+  showRecentPosts = true
+  recentPostCount = 5
+  listStyle = 'summary'
 
 [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
   [markup.highlight]
     noClasses = false
 
-[sitemap]
-  changefreq = 'weekly'
-  priority = 0.5
-  filename = 'sitemap.xml'
+[languages]
+  [languages.en]
+    disabled = false
+    languageCode = 'en'
+    languageDirection = 'ltr'
+    languageName = 'English'
+    weight = 1
 
-[[menu.main]]
-  name = 'Home'
-  pageRef = '/'
-  weight = 10
-[[menu.main]]
-  name = 'About'
-  pageRef = '/about'
-  weight = 20
-[[menu.main]]
-  name = 'Blog'
-  pageRef = '/blog'
-  weight = 30
-[[menu.main]]
-  name = 'Projects'
-  pageRef = '/projects'
-  weight = 40
-[[menu.main]]
-  name = 'Contact'
-  pageRef = '/contact'
-  weight = 50
+    [languages.en.menus]
+      [[languages.en.menus.header]]
+        name = 'Home'
+        URL = '/'
+        weight = 1
+      [[languages.en.menus.header]]
+        name = 'About'
+        URL = '/about'
+        weight = 2
+      [[languages.en.menus.header]]
+        name = 'Blog'
+        URL = '/blog'
+        weight = 3
+      [[languages.en.menus.header]]
+        name = 'Projects'
+        URL = '/projects'
+        weight = 4
+      [[languages.en.menus.header]]
+        name = 'Contact'
+        URL = '/contact'
+        weight = 5
+
+      [[languages.en.menus.footer]]
+        name = 'Home'
+        URL = '/'
+        weight = 1
+      [[languages.en.menus.footer]]
+        name = 'Blog'
+        URL = '/blog'
+        weight = 2
+      [[languages.en.menus.footer]]
+        name = 'Projects'
+        URL = '/projects'
+        weight = 3
+      [[languages.en.menus.footer]]
+        name = 'Contact'
+        URL = '/contact'
+        weight = 4
